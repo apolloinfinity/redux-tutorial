@@ -2,7 +2,6 @@ import React, { useEffect, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getCategories } from '../redux/actions/categories';
-import { getItemTypes } from '../redux/actions/itemTypes';
 
 const InventoryForm = () => {
 	const dispatch = useDispatch();
@@ -11,7 +10,6 @@ const InventoryForm = () => {
 	useEffect(
 		() => {
 			dispatch(getCategories());
-			dispatch(getItemTypes());
 		},
 		[ dispatch ]
 	);
