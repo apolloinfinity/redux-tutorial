@@ -1,4 +1,4 @@
-import { FETCH_ALL, FETCH_TYPES } from '../constants/types';
+import { FETCH_TYPES } from '../constants/types';
 import * as api from '../api/';
 
 export const getItemTypes = () => async (dispatch) => {

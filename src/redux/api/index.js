@@ -1,11 +1,12 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'http://10.0.20.101:9090' });
+const API = axios.create({ baseURL: 'localhost:9090' });
 
 API.interceptors.request.use((req) => {
 	if (localStorage.getItem('profile')) {
-		req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile'))
-			.token}`;
+		req.headers.Authorization = `Bearer ${JSON.parse(
+			localStorage.getItem('profile')
+		).token}`;
 	}
 	return req;
 });

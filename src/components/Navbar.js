@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 const Navbar = () => {
 	return (
-		<nav className='navbar navbar-expand-lg navbar-light bg-light'>
-			<div className='container-fluid'>
+		<nav className='navbar navbar-expand-lg navbar-dark bg-secondary'>
+			<div className='container'>
 				<Link className='navbar-brand' to='/'>
 					Home
 				</Link>
@@ -14,7 +14,8 @@ const Navbar = () => {
 					data-bs-target='#navbarNav'
 					aria-controls='navbarNav'
 					aria-expanded='false'
-					aria-label='Toggle navigation'>
+					aria-label='Toggle navigation'
+				>
 					<span className='navbar-toggler-icon' />
 				</button>
 				<div className='collapse navbar-collapse' id='navbarNav'>
@@ -23,7 +24,8 @@ const Navbar = () => {
 							<Link
 								className='nav-link active'
 								aria-current='page'
-								to='/inventory'>
+								to='/inventory'
+							>
 								Inventory
 							</Link>
 						</li>
@@ -33,6 +35,9 @@ const Navbar = () => {
 							</Link>
 						</li>
 					</ul>
+				</div>
+				<div className='d-flex'>
+					<button className='btn btn-outline-light'>Logout</button>
 				</div>
 			</div>
 		</nav>
