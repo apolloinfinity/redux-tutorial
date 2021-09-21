@@ -1,14 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { getCategories } from './services';
+import { fetchCategories } from '../services/index';
 
 const initialCategoryState = {
 	categories: [],
-	status: null
+	status: null,
+	error: null
 };
 
+export const getCategories = createAsyncThunk('categories', async () => {
+	const response = await fetchCategories();
+	return response.data;
+});
+
 const categorySlice = createSlice({
-	name: 'category',
+	name: 'categories',
 	initialState: initialCategoryState,
 	extraReducers: {
 		[getCategories.pending]: (state, action) => {
@@ -17,7 +23,7 @@ const categorySlice = createSlice({
 		[getCategories.fulfilled]: (state, { payload }) => {
 			state.categories = payload.data;
 		},
-		[getCategories.failed]: (state, action) => {
+		[getCategories.rejected]: (state, action) => {
 			state.status = 'failed';
 		}
 	}

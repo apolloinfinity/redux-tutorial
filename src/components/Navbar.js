@@ -1,10 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+
 const Navbar = () => {
+	const history = useHistory();
+
+	const handleLogOut = () => {
+		localStorage.removeItem('token');
+		localStorage.removeItem('user');
+		history.push('/');
+	};
+
 	return (
 		<nav className='navbar navbar-expand-lg navbar-dark bg-secondary'>
 			<div className='container'>
-				<Link className='navbar-brand' to='/'>
+				<Link className='navbar-brand' to='/home'>
 					Home
 				</Link>
 				<button
@@ -14,8 +23,7 @@ const Navbar = () => {
 					data-bs-target='#navbarNav'
 					aria-controls='navbarNav'
 					aria-expanded='false'
-					aria-label='Toggle navigation'
-				>
+					aria-label='Toggle navigation'>
 					<span className='navbar-toggler-icon' />
 				</button>
 				<div className='collapse navbar-collapse' id='navbarNav'>
@@ -24,8 +32,7 @@ const Navbar = () => {
 							<Link
 								className='nav-link active'
 								aria-current='page'
-								to='/inventory'
-							>
+								to='/inventory'>
 								Inventory
 							</Link>
 						</li>
@@ -37,7 +44,9 @@ const Navbar = () => {
 					</ul>
 				</div>
 				<div className='d-flex'>
-					<button className='btn btn-outline-light'>Logout</button>
+					<button onClick={handleLogOut} className='btn btn-outline-light'>
+						Logout
+					</button>
 				</div>
 			</div>
 		</nav>

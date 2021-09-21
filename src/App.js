@@ -5,6 +5,7 @@ import About from './components/About';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Login from './components/Login';
+import { useSelector, useDispatch } from 'react-redux';
 
 function App() {
 	return (

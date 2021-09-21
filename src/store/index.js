@@ -1,14 +1,14 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 
-import user from './user-slice';
-import itemTypes from './itemTypes-slice';
-import categories from './categories-slice';
+import user from './userSlice';
+// import itemTypes from './itemTypesSlice';
+import categories from './categoriesSlice';
 
 const store = configureStore(
 	{
 		reducer: {
 			user: user.reducer,
-			itemTypes: itemTypes.reducer,
+			// itemTypes: itemTypes.reducer,
 			categories: categories.reducer
 		},
 		middleware: (getDefaultMiddleware) =>

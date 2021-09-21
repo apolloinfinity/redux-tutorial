@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getItemTypes } from './services';
+import { getItemTypes } from '../services/services';
 
 const initialItemTypeState = {
 	itemTypes: [],
@@ -17,7 +17,7 @@ const itemTypeSlice = createSlice({
 		[getItemTypes.fulfilled]: (state, { payload }) => {
 			state.itemTypes = payload.data;
 		},
-		[getItemTypes.failed]: (state, action) => {
+		[getItemTypes.rejected]: (state, action) => {
 			state.status = 'failed';
 		}
 	}
