@@ -15,11 +15,12 @@ const initialUserState = {
 	username: '',
 	email: '',
 	isFetching: false,
+	isSuccess: false,
 	isError: false,
 	errorMessage: ''
 };
 
-export const signIn = createAsyncThunk('user', async (data) => {
+export const signIn = createAsyncThunk('user', async (data, thunkAPI) => {
 	try {
 		const response = await authenticateUser(data);
 		console.log(response.status);
@@ -28,34 +29,46 @@ export const signIn = createAsyncThunk('user', async (data) => {
 			localStorage.setItem('user', JSON.stringify(response.data.user));
 			return response.data;
 		} else {
-			return new Error('Something went wrong');
+			return thunkAPI.rejectWithValue(response.error);
 		}
 	} catch (error) {
 		console.error({ Error: error.response.data });
+		return thunkAPI.rejectWithValue(error.response.data);
 	}
 });
 
 const userSlice = createSlice({
 	name: 'user',
 	initialState: initialUserState,
+	reducers: {
+		clearState: (state) => {
+			state.isError = false;
+			state.isSuccess = false;
+			state.isFetching = false;
+
+			return state;
+		}
+	},
 	extraReducers: {
 		[signIn.pending]: (state, action) => {
 			state.isFetching = true;
 		},
 		[signIn.fulfilled]: (state, { payload }) => {
-			state.user = payload.user.displayName;
+			state.username = payload.user.displayName;
 			state.email = payload.user.email;
+			state.isSuccess = true;
 			state.isFetching = false;
 		},
-		[signIn.rejected]: (state) => {
+		[signIn.rejected]: (state, { payload }) => {
 			state.isFetching = false;
 			state.isError = true;
+			state.isSuccess = false;
 			state.errorMessage = 'Wrong email or password';
 		}
 	}
 });
 
-export const userActions = userSlice.actions;
+export const { clearState } = userSlice.actions;
 export const userSelector = (state) => state.user;
 
 export default userSlice;

@@ -1,12 +1,13 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useFormState } from 'react-use-form-state';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { signIn } from '../store/userSlice';
+import { signIn, userSelector, clearState } from '../store/userSlice';
 
 const Login = () => {
 	const dispatch = useDispatch();
+	const { user, isError, isFetching, isSuccess } = useSelector(userSelector);
 	const history = useHistory();
 	const [ formState, { email, password, label } ] = useFormState();
 
@@ -14,8 +15,28 @@ const Login = () => {
 		e.preventDefault();
 		// console.log(formState.values);
 		dispatch(signIn(formState.values));
-		history.push('/home');
 	};
+
+	useEffect(() => {
+		return () => {
+			dispatch(clearState());
+		};
+	}, []);
+
+	useEffect(
+		() => {
+			if (isError) {
+				dispatch(clearState());
+			}
+
+			if (isSuccess) {
+				dispatch(clearState());
+				history.push('/home');
+			}
+		},
+		[ isError, isSuccess ]
+	);
+
 	return (
 		<Fragment>
 			<form

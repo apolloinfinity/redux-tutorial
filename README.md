@@ -9,7 +9,8 @@ As I was going through a tutorial on how to use Authentication and Redux for a M
 The Memories project was the basis for implementing Redux along with Authentication for a Front-end project at work. The issue came up for me is that hitting two different endpoints within ***FE*** project was causing issues of only one state being filled with two different data sets. Since React likes list rendered in the view to have a key, the options tags had two identical keys with different data sets. With Redux, the Action Types, they are strings stored in variables to prevent misspelling, had action type of ***FETCH_ALL***. What was unbeknownst to me is that despite the fact that FETCH_ALL is a simple reference to a string, this would make a big difference in how Redux accesses and stores state. 
 
 ### The Solution to My Problem.
-I scoured the internet to find answers but couldn't. Most google searches led to the Redux documentation which didn't really lead to anything considerable.
+I scoured the internet to find answers but couldn't. Most google searches led to the Redux documentation which didn't really lead to anything considerable. But I have found that Redux Toolkit or RTK for short, is phenomenal for reducing boiler plate code and a lot of the actions made more sense. So I will continue using RTK for futures projects where I believe they will benefit the most. 
 
 [Redux Toolkit Thunk for Asynchronous API calls](https://stackoverflow.com/questions/60316251/how-to-use-redux-thunk-with-redux-toolkits-createslice)
 [Medium Article on how to use Thunk with Redux Toolkit](https://blog.bitsrc.io/simplifying-redux-with-redux-toolkit-6236c28cdfcb)
+[Using toast for pop-up notifications](https://react-hot-toast.com/)
