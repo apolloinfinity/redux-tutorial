@@ -1,4 +1,9 @@
+import { Fragment } from 'react';
+
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import { userSelector } from './store/userSlice';
 
 import Inventory from './components/Inventory';
 import About from './components/About';
@@ -12,6 +17,7 @@ function App() {
 			<Navbar />
 			<div className='container'>
 				<Route path='/' exact component={Login} />
+
 				<Route path='/home' component={Home} />
 				<Route path='/inventory' component={Inventory} />
 				<Route path='/about' component={About} />

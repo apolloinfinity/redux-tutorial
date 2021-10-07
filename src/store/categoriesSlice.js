@@ -10,25 +10,31 @@ const initialCategoryState = {
 
 export const getCategories = createAsyncThunk('categories', async () => {
 	const response = await fetchCategories();
-	return response.data;
+	// console.log(response.data);
+	return response;
 });
 
 const categorySlice = createSlice({
 	name: 'categories',
 	initialState: initialCategoryState,
 	extraReducers: {
-		[getCategories.pending]: (state, action) => {
+		[getCategories.pending]: (state) => {
 			state.status = 'loading';
 		},
 		[getCategories.fulfilled]: (state, { payload }) => {
+			console.log(payload);
 			state.categories = payload.data;
+			state.status = 'success';
+			state.error = false;
 		},
 		[getCategories.rejected]: (state, action) => {
 			state.status = 'failed';
+			state.error = action.payload.error;
 		}
 	}
 });
 
 export const categoryActions = categorySlice.actions;
+export const categorySelector = (state) => state.categories;
 
 export default categorySlice;

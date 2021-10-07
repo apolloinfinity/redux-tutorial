@@ -1,5 +1,5 @@
-import { API } from './url';
+import api from './url';
 
 export const fetchCategories = async () => {
-	return await API.get('/api/categories');
+	return await api.get('/api/categories');
 };

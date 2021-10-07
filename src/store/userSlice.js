@@ -2,18 +2,17 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { authenticateUser } from '../services';
 
-// export const signIn = createAsyncThunk('user/signIn', async (formData) => {
-// 	const { data } = await API.post('/auth', formData);
-// 	console.log(data);
-// 	localStorage.setItem('profile', JSON.stringify(data));
-// 	// localStorage.setItem('token', data.token);
-// 	// localStorage.setItem('user', data.user.display);
-// 	return data;
-// });
+const initialUser = localStorage.getItem('user')
+	? JSON.parse(localStorage.getItem('user'))
+	: null;
+
+const initialToken = localStorage.getItem('token')
+	? JSON.parse(localStorage.getItem('token'))
+	: null;
 
 const initialUserState = {
-	username: '',
-	email: '',
+	user: initialUser,
+	isAuthenticated: initialToken,
 	isFetching: false,
 	isSuccess: false,
 	isError: false,
@@ -25,8 +24,6 @@ export const signIn = createAsyncThunk('user', async (data, thunkAPI) => {
 		const response = await authenticateUser(data);
 		console.log(response.status);
 		if (response.status === 200) {
-			localStorage.setItem('token', response.data.token);
-			localStorage.setItem('user', JSON.stringify(response.data.user));
 			return response.data;
 		} else {
 			return thunkAPI.rejectWithValue(response.error);
@@ -48,20 +45,31 @@ const userSlice = createSlice({
 
 			return state;
 		}
+		// logOut: (state, history) => {
+		// 	state.isAuthenticated = false;
+		// 	localStorage.removeItem('user');
+		// 	localStorage.removeItem('token');
+		// 	history.push('/');
+		// }
 	},
 	extraReducers: {
 		[signIn.pending]: (state, action) => {
 			state.isFetching = true;
+			state.isAuthenticated = false;
 		},
 		[signIn.fulfilled]: (state, { payload }) => {
-			state.username = payload.user.displayName;
-			state.email = payload.user.email;
+			console.log(payload);
+			state.user = initialUser;
+			state.isAuthenticated = true;
 			state.isSuccess = true;
 			state.isFetching = false;
+			localStorage.setItem('user', JSON.stringify(payload.user));
+			localStorage.setItem('token', JSON.stringify(payload.token));
 		},
 		[signIn.rejected]: (state, { payload }) => {
 			state.isFetching = false;
 			state.isError = true;
+			state.isAuthenticated = false;
 			state.isSuccess = false;
 			state.errorMessage = 'Wrong email or password';
 		}

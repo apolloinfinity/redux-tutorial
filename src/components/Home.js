@@ -4,11 +4,11 @@ import { useSelector } from 'react-redux';
 import { userSelector } from '../store/userSlice';
 
 const Home = () => {
-	const { username } = useSelector(userSelector);
+	const { user } = useSelector(userSelector);
 	return (
 		<div>
 			<h1>Home Page</h1>
-			<p>Welcome back {username}</p>
+			<p>Welcome back {user.displayName}</p>
 		</div>
 	);
 };

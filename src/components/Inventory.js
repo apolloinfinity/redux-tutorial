@@ -1,10 +1,18 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getCategories } from '../store/categoriesSlice';
+import { categorySelector } from '../store/categoriesSlice';
 
 const Inventory = () => {
 	const dispatch = useDispatch();
 
-	useEffect(() => {}, [ dispatch ]);
+	useEffect(
+		() => {
+			dispatch(getCategories());
+		},
+		[ dispatch ]
+	);
+	const { categories } = useSelector(categorySelector);
 
 	return (
 		<div>
@@ -12,7 +20,7 @@ const Inventory = () => {
 			<section>
 				<div className='row'>
 					{/* <InventoryForm /> */}
-					{/* <div className='col'>
+					<div className='col'>
 						<ul className='list-group'>
 							{categories.map((category) => (
 								<li className='list-group-item' key={category.CategoryId}>
@@ -20,7 +28,7 @@ const Inventory = () => {
 								</li>
 							))}
 						</ul>
-					</div> */}
+					</div>
 					{/* <div className='col'>
 						<h3>Types</h3>
 						<ul className='list-group'>

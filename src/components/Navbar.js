@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { logOut } from '../store/userSlice';
 
 const Navbar = () => {
 	const history = useHistory();
+	const dispatch = useDispatch;
 
 	const handleLogOut = () => {
 		localStorage.removeItem('token');

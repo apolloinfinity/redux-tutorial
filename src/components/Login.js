@@ -7,7 +7,7 @@ import { signIn, userSelector, clearState } from '../store/userSlice';
 
 const Login = () => {
 	const dispatch = useDispatch();
-	const { user, isError, isFetching, isSuccess } = useSelector(userSelector);
+	const { isError, isSuccess } = useSelector(userSelector);
 	const history = useHistory();
 	const [ formState, { email, password, label } ] = useFormState();
 
@@ -17,11 +17,14 @@ const Login = () => {
 		dispatch(signIn(formState.values));
 	};
 
-	useEffect(() => {
-		return () => {
-			dispatch(clearState());
-		};
-	}, []);
+	useEffect(
+		() => {
+			return () => {
+				dispatch(clearState());
+			};
+		},
+		[ dispatch ]
+	);
 
 	useEffect(
 		() => {
@@ -34,7 +37,7 @@ const Login = () => {
 				history.push('/home');
 			}
 		},
-		[ isError, isSuccess ]
+		[ isError, isSuccess, dispatch, history ]
 	);
 
 	return (

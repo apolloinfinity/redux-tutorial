@@ -14,3 +14,5 @@ I scoured the internet to find answers but couldn't. Most google searches led to
 [Redux Toolkit Thunk for Asynchronous API calls](https://stackoverflow.com/questions/60316251/how-to-use-redux-thunk-with-redux-toolkits-createslice)
 [Medium Article on how to use Thunk with Redux Toolkit](https://blog.bitsrc.io/simplifying-redux-with-redux-toolkit-6236c28cdfcb)
 [Using toast for pop-up notifications](https://react-hot-toast.com/)
+[Keeping user authenticated on page reload](https://www.softkraft.co/how-to-setup-redux-with-redux-toolkit/#how-keep-user-authenticated-on-page-reload)
+[Auth header with token](https://jasonwatmore.com/post/2021/09/17/react-fetch-set-authorization-header-for-api-requests-if-user-logged-in)
